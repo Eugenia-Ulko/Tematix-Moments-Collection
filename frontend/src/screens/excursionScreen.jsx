@@ -1,14 +1,24 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Row, Col, Image, ListGroup, Card, Button
 } from 'react-bootstrap';
+import axios from 'axios';
 import Rating from '../components/Rating/rating';
-import excursions from '../excursions';
 
 const ExcursionScreen = ({ match }) => {
-  const excursion = excursions.find((exc) => exc.id === match.params.id);
+  const [excursion, setExcursion] = useState({});
+
+  useEffect(() => {
+    const fetchExcursion = async () => {
+      const { data } = await axios.get(`/api/excursions/${match.params.id}`);
+
+      setExcursion(data);
+    };
+    fetchExcursion();
+  }, []);
+
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">Go Back</Link>
