@@ -6,7 +6,7 @@ const excursions = [
     description: 'You can enjoy wine country not far from the city of Barcelona. The region of Catalonia is famous for its production of Cava, a Spanish sparkling wine. At less than 1 hour drive from Barcelona, you can find many interesting wineries.',
     cathegory: 'Gastronomic',
     price: 130,
-    placesAvailable: 5,
+    placesAvailable: 8,
     rating: 4.5,
     numReviews: 4
   },
