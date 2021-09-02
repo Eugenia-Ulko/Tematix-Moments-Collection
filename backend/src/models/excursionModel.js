@@ -17,7 +17,7 @@ const excursionSchema = new Schema(
     },
     name: {
       type: String,
-      requires: true
+      required: true
     },
     image: {
       type: String,
