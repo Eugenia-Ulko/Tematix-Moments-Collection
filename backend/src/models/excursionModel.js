@@ -37,10 +37,6 @@ const excursionSchema = new Schema(
       required: true,
       default: 0
     },
-    date: {
-      type: Date,
-      required: true
-    },
     numReviews: {
       type: Number,
       required: true,
@@ -61,4 +57,5 @@ const excursionSchema = new Schema(
   }
 );
 
-module.exports = model('Excursion', excursionSchema);
+const Excursion = model('Excursion', excursionSchema);
+module.exports = Excursion;

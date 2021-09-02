@@ -43,4 +43,5 @@ const bookingSchema = new Schema({
   timestamps: true
 });
 
-module.exports = model('Booking', bookingSchema);
+const Booking = model('Booking', bookingSchema);
+module.exports = Booking;

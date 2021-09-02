@@ -6,12 +6,15 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest --watchAll --collect-coverage",
-    "debug": "nodemon --inspect-brk index.js"
-    },
+    "debug": "nodemon --inspect-brk index.js",
+    "data:import": "node seeder",
+    "data:delete": "node seeder -d"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chalk": "^4.1.2",
     "debug": "^4.3.2",
     "dotenv": "^10.0.0",
