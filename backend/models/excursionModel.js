@@ -1,10 +1,11 @@
 const { model, Schema } = require('mongoose');
 
 const reviewSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  }
+  name: { type: String, required: true },
+  rating: { type: Number, required: true },
+  comment: { type: String, required: true }
+}, {
+  timestamps: true
 });
 
 const excursionSchema = new Schema(
@@ -37,7 +38,7 @@ const excursionSchema = new Schema(
       default: 0
     },
     date: {
-      type: Number,
+      type: Date,
       required: true
     },
     numReviews: {
