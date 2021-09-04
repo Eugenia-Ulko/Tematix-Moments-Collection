@@ -67,27 +67,26 @@ const excursions = [
   },
   {
     id: '7',
-    name: 'Wine tour to Priorat',
-    image: 'https://i.ibb.co/vk8GsHP/wine-1952051-1920.jpg',
-    description: 'You can enjoy wine country not far from the city of Barcelona. The region of Catalonia is famous for its production of Cava, a Spanish sparkling wine. At less than 1 hour drive from Barcelona, you can find many interesting wineries.',
+    name: 'Wine and Tapas Tour in the Gothic Quarter',
+    image: 'https://i.ibb.co/GcjLhrh/lobby-lounge-2262348-1920.jpg',
+    description: 'Our tapas tour of the Gothic Quarter will take you to a number of small top quality restaurants and food establishments, leaving you sated, jolly, and with a better understanding of local Catalan and national Spanish cuisine.',
     cathegory: 'Gastronomic',
-    price: 130,
-    placesAvailable: 5,
-    rating: 4.5,
-    numReviews: 4
+    price: 90,
+    placesAvailable: 7,
+    rating: 4.9,
+    numReviews: 12
   },
   {
     id: '8',
-    name: 'Bike tour in Montseny',
-    image: 'https://i.ibb.co/SN5m8Hh/cycles-6895-1920.jpg',
-    description: 'All levels of mountain bike routes in the surrounding of Barcelona riding in Collserola Natural Park, Montseny, Montserrat, Barcelona North Coast, Sitges and more. All our routes are checked every year in order to adjust the track to the posible changes we detect or to improve the route.',
-    cathegory: 'Sports',
-    price: 100,
-    placesAvailable: 6,
-    rating: 4.1,
-    numReviews: 6
+    name: 'Helicopter flight over Barcelona',
+    image: 'https://i.ibb.co/TbyrzHK/Helicopter-tours-in-Barcelona.jpg',
+    description: '"Above the clouds, freedom must be limitless ..." - and the view of Barcelona breathtakingly beautiful! A scenic flight over the city gives you unforgettable views of the sights, the harbor and the beautiful beach promenade.',
+    cathegory: 'Outdoor',
+    price: 260,
+    placesAvailable: 2,
+    rating: 4.8,
+    numReviews: 8
   }
-
 ];
 
 module.exports = excursions;

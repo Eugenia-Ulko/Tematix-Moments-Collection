@@ -1,12 +1,19 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
-const debug = require('debug')('app');
-const excursions = require('./excursions');
+const notFound = require('./src/middleware/errorMiddleware');
+const errorHandler = require('./src/middleware/errorMiddleware');
+const connectDB = require('./src/config/databaseConfig');
+
+const excursionRouter = require('./src/routes/excursionRouter');
+
+dotenv.config();
+connectDB();
 
 const app = express();
 const port = process.env.PORT || 5003;
 
+app.use('/api/excursions', excursionRouter);
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -14,16 +21,10 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.get('/api/excursions', (req, res) => {
-  res.json(excursions);
-});
-
-app.get('/api/excursions/:id', (req, res) => {
-  const excursion = excursions.find((exc) => exc.id === req.params.id);
-  res.json(excursion);
-});
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(
   port,
-  () => debug(`Server is running successfully on http://localhost:${port}`)
+  () => console.log(`Server is running successfully on http://localhost:${port}`)
 );
