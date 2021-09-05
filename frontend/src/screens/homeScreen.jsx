@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-nested-ternary */
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import axios from 'axios';
 import Excursion from '../components/Excursions/excursion';
+import listExcursions from '../redux/actions/excursionsActions';
 
 const HomeScreen = () => {
-  const [excursions, setExcursions] = useState([]);
+  const dispatch = useDispatch();
+
+  const excursionsList = useSelector((state) => state.excursionsList);
+  const { loading, error, excursions } = excursionsList;
 
   useEffect(() => {
-    const fetchExcursions = async () => {
-      const { data } = await axios.get('/api/excursions');
-
-      setExcursions(data);
-    };
-    fetchExcursions();
-  }, []);
+    dispatch(listExcursions());
+  }, [dispatch]);
 
   return (
     <>
 
       <h1>Highlight tours</h1>
-      <Row>
-        {excursions.map((excursion) => (
-          <Col key={excursion.id} sm={12} md={6} lg={3} xl={3}>
-            <Excursion excursion={excursion} />
-          </Col>
-        ))}
+      {loading ? <h2> Loading ...</h2> : error
+        ? <h3>{error}</h3>
+        : (
+          <Row>
+            {excursions.map((excursion) => (
+              <Col key={excursion.id} sm={12} md={6} lg={3} xl={3}>
+                <Excursion excursion={excursion} />
+              </Col>
+            ))}
 
-      </Row>
+          </Row>
+        )}
     </>
   );
 };
