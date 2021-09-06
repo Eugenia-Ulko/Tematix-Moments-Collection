@@ -12,7 +12,7 @@ import Message from '../components/Messages/Message';
 import Loader from '../components/Messages/Loader';
 import { listExcursionDetails } from '../redux/actions/actionsCreator';
 
-const ExcursionScreen = ({ match }) => {
+const ExcursionScreen = ({ history, match }) => {
   const [qty, setQty] = useState(0);
 
   const dispatch = useDispatch();
@@ -23,6 +23,10 @@ const ExcursionScreen = ({ match }) => {
   useEffect(() => {
     dispatch(listExcursionDetails(match.params.id));
   }, [dispatch, match]);
+
+  const bookHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
 
   return (
     <>
@@ -96,7 +100,7 @@ const ExcursionScreen = ({ match }) => {
                 )}
 
                 <ListGroup.Item>
-                  <Button className="btn-block" type="button" disabled={excursion.placesAvailable === 0}>
+                  <Button onClick={bookHandler} className="btn-block" type="button" disabled={excursion.placesAvailable === 0}>
                     Book now
                   </Button>
                 </ListGroup.Item>

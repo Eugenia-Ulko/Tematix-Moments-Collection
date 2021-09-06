@@ -6,6 +6,7 @@ import Header from './components/Header/header';
 import Footer from './components/Footer/footer';
 import HomeScreen from './screens/homeScreen';
 import ExcursionScreen from './screens/excursionScreen';
+import CartScreen from './screens/cartScreen';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Container>
           <Route path="/" component={HomeScreen} exact />
           <Route path="/excursion/:id" component={ExcursionScreen} />
+          <Route path="/cart/:id?" component={CartScreen} />
         </Container>
 
       </main>
