@@ -18,7 +18,7 @@ excursionRouter
 // @access  Public
 excursionRouter
   .get('/:id', asyncHandler(async (req, res) => {
-    const excursion = await Excursion.findOneById(req.params.id);
+    const excursion = await Excursion.findById(req.params.id);
     if (excursion) {
       res.json(excursion);
     } else {

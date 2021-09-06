@@ -1,7 +1,7 @@
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
-const listExcursions = () => async (dispatch) => {
+export const listExcursions = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.EXCURSION_LIST_REQUEST });
 
@@ -20,7 +20,7 @@ const listExcursions = () => async (dispatch) => {
   }
 };
 
-const listExcursionDetails = (id) => async (dispatch) => {
+export const listExcursionDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.EXCURSION_DETAILS_REQUEST });
 
@@ -38,5 +38,3 @@ const listExcursionDetails = (id) => async (dispatch) => {
     });
   }
 };
-
-export default { listExcursions, listExcursionDetails };

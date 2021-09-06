@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import Excursion from '../components/Excursions/excursion';
 import Message from '../components/Messages/Message';
 import Loader from '../components/Messages/Loader';
-import listExcursions from '../redux/actions/excursionsActions';
+import { listExcursions } from '../redux/actions/actionsCreator';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
