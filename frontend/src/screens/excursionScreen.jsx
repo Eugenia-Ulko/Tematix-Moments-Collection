@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Row, Col, Image, ListGroup, Card, Button
+  Row, Col, Image, ListGroup, Card, Button, Form
 } from 'react-bootstrap';
 import Rating from '../components/Rating/rating';
 import Message from '../components/Messages/Message';
@@ -13,6 +13,8 @@ import Loader from '../components/Messages/Loader';
 import { listExcursionDetails } from '../redux/actions/actionsCreator';
 
 const ExcursionScreen = ({ match }) => {
+  const [qty, setQty] = useState(0);
+
   const dispatch = useDispatch();
 
   const excursionDetails = useSelector((state) => state.excursionDetails);
@@ -69,11 +71,30 @@ const ExcursionScreen = ({ match }) => {
                   </Row>
                 </ListGroup.Item>
 
-                <ListGroup.Item disabled={excursion.placesAvailable > 0}>
+                {/* <ListGroup.Item disabled={excursion.placesAvailable > 0}>
                   <Row>
                     Sorry, no available places for this day
                   </Row>
+      </ListGroup.Item> */}
+
+                {excursion.placesAvailable > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Qty. pax</Col>
+                    <Col>
+                      <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                        {[...Array(excursion.placesAvailable).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </Col>
+                  </Row>
                 </ListGroup.Item>
+
+                )}
+
                 <ListGroup.Item>
                   <Button className="btn-block" type="button" disabled={excursion.placesAvailable === 0}>
                     Book now
