@@ -19,7 +19,6 @@ const ExcursionScreen = ({ match }) => {
   const { loading, error, excursion } = excursionDetails;
 
   useEffect(() => {
-    console.log(match.params);
     dispatch(listExcursionDetails(match.params.id));
   }, [dispatch, match]);
 
