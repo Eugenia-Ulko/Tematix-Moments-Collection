@@ -13,7 +13,7 @@ import Loader from '../components/Messages/Loader';
 import { listExcursionDetails } from '../redux/actions/actionsCreator';
 
 const ExcursionScreen = ({ history, match }) => {
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
 
