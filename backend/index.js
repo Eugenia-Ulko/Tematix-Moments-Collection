@@ -6,6 +6,7 @@ const errorHandler = require('./src/middleware/errorMiddleware');
 const connectDB = require('./src/config/databaseConfig');
 
 const excursionRouter = require('./src/routes/excursionRouter');
+const userRouter = require('./src/routes/userRouter');
 
 dotenv.config();
 connectDB();
@@ -13,9 +14,10 @@ connectDB();
 const app = express();
 const port = process.env.PORT || 5003;
 
-app.use('/api/excursions', excursionRouter);
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/api/excursions', excursionRouter);
+app.use('/api/users', userRouter);
 
 app.get('/', (req, res) => {
   res.send('API is running...');
