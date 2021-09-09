@@ -1,10 +1,20 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import {
   Container, NavDropdown, Nav, Navbar
 } from 'react-bootstrap';
 
-function Header() {
+const Header = () => {
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    console.log('Logout');
+  };
+
   return (
     <header>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -39,12 +49,22 @@ function Header() {
                   Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link eventKey={2}>
-                  <i className="fas fa-user" />
-                  Sign In
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link eventKey={2}>
+                    <i className="fas fa-user" />
+                    Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
+
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -52,5 +72,5 @@ function Header() {
       {/* <img src="https://i.ibb.co/fCCyH1t/girl-429380-1920.jpg" alt="Beachgirl" className="header-image" /> */}
     </header>
   );
-}
+};
 export default Header;
