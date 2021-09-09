@@ -39,7 +39,7 @@ function Header() {
                   Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/signin">
+              <LinkContainer to="/login">
                 <Nav.Link eventKey={2}>
                   <i className="fas fa-user" />
                   Sign In

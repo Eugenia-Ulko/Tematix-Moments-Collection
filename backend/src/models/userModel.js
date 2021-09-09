@@ -1,7 +1,8 @@
-const { model, Schema } = require('mongoose');
+/* eslint-disable no-return-await */
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new Schema({
+const userSchema = mongoose.Schema({
 
   name: {
     type: String,
@@ -29,5 +30,14 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const User = model('User', userSchema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+const User = mongoose.model('User', userSchema);
 module.exports = User;
