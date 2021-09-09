@@ -67,7 +67,7 @@ const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export default {
+export {
   login,
   logout,
   register

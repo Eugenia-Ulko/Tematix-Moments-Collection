@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +29,7 @@ const HomeScreen = () => {
       ) : (
         <Row>
           {excursions.map((excursion) => (
-            <Col key={excursion.id} sm={12} md={6} lg={3} xl={3}>
+            <Col key={excursion._id} sm={12} md={6} lg={3} xl={3}>
               <Excursion excursion={excursion} />
             </Col>
           ))}

@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {
   Container, NavDropdown, Nav, Navbar
 } from 'react-bootstrap';
-import logout from '../../redux/actions/userActions';
+import { logout } from '../../redux/actions/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();
