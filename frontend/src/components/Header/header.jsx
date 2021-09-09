@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import {
   Container, NavDropdown, Nav, Navbar
 } from 'react-bootstrap';
+import logout from '../../redux/actions/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Header = () => {
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
-    console.log('Logout');
+    dispatch(logout());
   };
 
   return (

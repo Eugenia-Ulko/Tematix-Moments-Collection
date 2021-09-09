@@ -4,13 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import excursionDetailsReducer from '../reducers/excursionDetailsReducer';
 import excursionsListReducer from '../reducers/excursionsListReducer';
 import cartReducer from '../reducers/cartReducer';
-import userLoginReducer from '../reducers/userReducers';
+import userReducers from '../reducers/userReducers';
 
 const reducer = combineReducers({
   excursionsList: excursionsListReducer,
   excursionDetails: excursionDetailsReducer,
   cart: cartReducer,
-  userLogin: userLoginReducer
+  userLogin: userReducers.userLoginReducer,
+  userRegister: userReducers.userRegisterReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
