@@ -11,7 +11,8 @@ const reducer = combineReducers({
   excursionDetails: excursionDetailsReducer,
   cart: cartReducer,
   userLogin: userReducers.userLoginReducer,
-  userRegister: userReducers.userRegisterReducer
+  userRegister: userReducers.userRegisterReducer,
+  userDetails: userReducers.userDetailsReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
