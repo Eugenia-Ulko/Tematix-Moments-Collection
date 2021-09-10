@@ -24,10 +24,8 @@ function App() {
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/" component={HomeScreen} exact />
         </Container>
-
       </main>
       <Footer />
-
     </Router>
   );
 }
