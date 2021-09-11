@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import actionTypes from '../actions/actionTypes';
 
-export default function cartReducer(state = { cartItems: [] }, action) {
+export default function cartReducer(state = { cartItems: [], clientAddress: {} }, action) {
   switch (action.type) {
     case actionTypes.CART_ADD_ITEM:
       const item = action.payload;
@@ -22,6 +22,12 @@ export default function cartReducer(state = { cartItems: [] }, action) {
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x.excursion !== action.payload)
+      };
+
+    case actionTypes.CART_SAVE_CLIENT_ADDRESS:
+      return {
+        ...state,
+        clientAddress: action.payload
       };
     default:
       return state;
