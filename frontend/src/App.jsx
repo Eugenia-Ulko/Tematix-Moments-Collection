@@ -11,6 +11,7 @@ import LoginScreen from './screens/loginScreen';
 import RegisterScreen from './screens/registerScreen';
 import ProfileScreen from './screens/profileScreen';
 import OrderConfirmationScreen from './screens/orderConfirmationScreen';
+import PaymentScreen from './screens/paymentScreen';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
+
           <Route path="/confirmation" component={OrderConfirmationScreen} />
+          <Route path="/payment" component={PaymentScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/register" component={RegisterScreen} />

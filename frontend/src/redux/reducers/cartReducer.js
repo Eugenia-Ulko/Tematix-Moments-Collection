@@ -29,6 +29,11 @@ export default function cartReducer(state = { cartItems: [], clientAddress: {} }
         ...state,
         clientAddress: action.payload
       };
+    case actionTypes.CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload
+      };
     default:
       return state;
   }

@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Form, Button
 } from 'react-bootstrap';
-
 import FormContainer from '../components/Form/formContainer';
+import Checkout from '../components/Checkout/checkout';
 import { saveClientAddress } from '../redux/actions/cartActions';
 
 const OrderConfirmationScreen = ({ history }) => {
@@ -27,6 +26,7 @@ const OrderConfirmationScreen = ({ history }) => {
 
   return (
     <FormContainer>
+      <Checkout step1 step2 />
       <h1>Order Confirmation</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="phoneNumber">
