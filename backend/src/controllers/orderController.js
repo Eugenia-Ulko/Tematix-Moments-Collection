@@ -38,4 +38,25 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = addOrderItems;
+// @desc   Get booking by ID
+// @route GET /api/bookings
+// @access  Private
+
+const getOrderById = asyncHandler(async (req, res) => {
+  const booking = await Booking.findById(req.params.id).populate(
+    'user',
+    'name email'
+  );
+
+  if (booking) {
+    res.json(booking);
+  } else {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+});
+
+module.exports = {
+  addOrderItems,
+  getOrderById
+};
