@@ -1,75 +1,91 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Button, Row, Col, ListGroup, Image, Card
+  Row, Col, ListGroup, Image, Card
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Message from '../components/Messages/Message';
-import Checkout from '../components/Checkout/checkout';
-import { createOrder } from '../redux/actions/orderActions';
+import Loader from '../components/Messages/Loader';
+import { getOrderDetails } from '../redux/actions/orderActions';
 
-const PlaceOrderScreen = ({ history }) => {
+const BookingScreen = ({ match }) => {
+  const bookingId = match.params.id;
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const orderDetails = useSelector((state) => state.orderCreate);
+  const { booking, loading, error } = orderDetails;
 
-  // calculate prices
-  cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-  cart.taxPrice = Number((0.21 * cart.itemsPrice).toFixed(2));
-
-  cart.totalPrice = cart.itemsPrice + cart.taxPrice;
-
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { booking, success, error } = orderCreate;
+  if (!loading) {
+    // calculate prices
+    booking.itemsPrice = booking.bookingItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+  }
 
   useEffect(() => {
-    if (success) {
-      history.push(`/booking/${booking._id}`);
+    if (!booking || booking._id !== bookingId) {
+      dispatch(getOrderDetails(bookingId));
     }
-    // eslint-disable-next-lines
-  }, [history, success]);
+  }, [booking, bookingId]);
 
-  const placeOrderHandler = () => {
-    dispatch(createOrder({
-      bookingItems: cart.cartItems,
-      clientAddress: cart.clientAddress,
-      paymentMethod: cart.paymentMethod,
-      itemsPrice: cart.itemsPrice,
-      taxPrice: cart.taxPrice,
-      totalPrice: cart.totalPrice
-    }));
-  };
-
-  return (
+  return loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
     <>
-      <Checkout step1 step2 step3 step4 />
+      <h1>
+        Booking
+        {booking._id}
+      </h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Order Confirmation</h2>
+              <h2>Booking Confirmation</h2>
+              <p>
+                {' '}
+                <strong>Customer Name:</strong>
+                {' '}
+                {booking.user.name}
+
+              </p>
+              <p>
+                {' '}
+                <strong>Email:</strong>
+                <a href={`mailto:${booking.user.email}`}>{booking.user.email}</a>
+
+              </p>
+
               <p>
                 <strong>Address:</strong>
-                {cart.clientAddress.address}
+                {booking.clientAddress.address}
                 ,
-                {cart.clientAddress.city}
+                {booking.clientAddress.city}
               </p>
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <strong>Payment Method:</strong>
-              {cart.paymentMethod}
+              <p>
+                <strong>Payment Method:</strong>
+                {booking.paymentMethod}
+                {' '}
+
+              </p>
+              {booking.isPaid ? (
+                <Message variant="success">
+                  Paid on
+                  {' '}
+                  {booking.paidAt}
+                </Message>
+              )
+                : <Message variant="danger">Not Paid</Message>}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h2>Booked Tours</h2>
 
-              {cart.cartItems.length === 0 ? <Message>Your cart is empty</Message> : (
+              {booking.bookingItems.length === 0 ? <Message>Booking is empty</Message> : (
                 <ListGroup variant="flush">
-                  {cart.cartItems.map((item, index) => (
+                  {booking.bookingItems.map((item, index) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <ListGroup.Item key={index}>
                       <Row>
@@ -105,14 +121,14 @@ const PlaceOrderScreen = ({ history }) => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2>Booking Summary</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
                   <Col>
-                    {cart.itemsPrice}
+                    {booking.itemsPrice}
                     €
                   </Col>
                 </Row>
@@ -122,36 +138,19 @@ const PlaceOrderScreen = ({ history }) => {
                 <Row>
                   <Col>Tax</Col>
                   <Col>
-                    {cart.taxPrice}
+                    {booking.taxPrice}
                     €
                   </Col>
                 </Row>
               </ListGroup.Item>
-
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
                   <Col>
-                    {cart.totalPrice}
+                    {booking.totalPrice}
                     €
                   </Col>
                 </Row>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message> }
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={cart.cartItems === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Confirm order
-
-                </Button>
               </ListGroup.Item>
 
             </ListGroup>
@@ -161,4 +160,4 @@ const PlaceOrderScreen = ({ history }) => {
     </>
   );
 };
-export default PlaceOrderScreen;
+export default BookingScreen;

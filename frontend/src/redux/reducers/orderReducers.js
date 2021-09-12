@@ -22,6 +22,58 @@ const orderCreateReducer = (state = {}, action) => {
   }
 };
 
+const orderDetailsReducer = (state = {
+  loading: true,
+  bookingItems: [],
+  clientAddress: {}
+}, action) => {
+  switch (action.type) {
+    case actionTypes.ORDER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.ORDER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        booking: action.payload
+      };
+    case actionTypes.ORDER_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+const orderPayReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.ORDER_PAY_REQUEST:
+      return {
+        loading: true
+      };
+    case actionTypes.ORDER_PAY_SUCCESS:
+      return {
+        loading: false,
+        success: true
+      };
+    case actionTypes.ORDER_PAY_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      };
+    case actionTypes.ORDER_PAY_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
 export default {
-  orderCreateReducer
+  orderCreateReducer,
+  orderDetailsReducer,
+  orderPayReducer
 };

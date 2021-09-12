@@ -56,7 +56,32 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Update booking to paid
+// @route GET /api/bookings/:id/pay
+// @access  Private
+
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const booking = await Booking.findById(req.params.id);
+
+  if (booking) {
+    booking.isPaid = true;
+    booking.paidAt = Date.now();
+    booking.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address
+    };
+    const updatedOrder = await booking.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Booking not found');
+  }
+});
+
 module.exports = {
   addOrderItems,
-  getOrderById
+  getOrderById,
+  updateOrderToPaid
 };
