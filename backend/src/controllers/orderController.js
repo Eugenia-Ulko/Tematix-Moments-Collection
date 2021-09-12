@@ -21,20 +21,22 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error('No order items');
     // eslint-disable-next-line no-unreachable
     return;
+  // eslint-disable-next-line no-else-return
+  } else {
+    const booking = new Booking({
+      bookingItems,
+      user: req.user._id,
+      clientAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      totalPrice
+    });
+
+    const createdOrder = await booking.save();
+
+    res.status(201).json(createdOrder);
   }
-  const booking = new Booking({
-    bookingItems,
-    user: req.user._id,
-    clientAddress,
-    paymentMethod,
-    itemsPrice,
-    taxPrice,
-    totalPrice
-  });
-
-  const createdOrder = await booking.save();
-
-  res.status(201).json(createdOrder);
 });
 
 module.exports = addOrderItems;

@@ -5,6 +5,7 @@ import excursionDetailsReducer from '../reducers/excursionDetailsReducer';
 import excursionsListReducer from '../reducers/excursionsListReducer';
 import cartReducer from '../reducers/cartReducer';
 import userReducers from '../reducers/userReducers';
+import orderReducers from '../reducers/orderReducers';
 
 const reducer = combineReducers({
   excursionsList: excursionsListReducer,
@@ -13,7 +14,8 @@ const reducer = combineReducers({
   userLogin: userReducers.userLoginReducer,
   userRegister: userReducers.userRegisterReducer,
   userDetails: userReducers.userDetailsReducer,
-  userUpdateProfile: userReducers.userUpdateProfileReducer
+  userUpdateProfile: userReducers.userUpdateProfileReducer,
+  orderCreate: orderReducers.orderCreateReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];

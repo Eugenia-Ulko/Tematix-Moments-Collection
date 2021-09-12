@@ -1,14 +1,18 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Row, Col, ListGroup, Image, Card
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Message from '../components/Messages/Message';
 import Checkout from '../components/Checkout/checkout';
+import createOrder from '../redux/actions/orderActions';
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
 
   // calculate prices
@@ -17,8 +21,25 @@ const PlaceOrderScreen = () => {
 
   cart.totalPrice = cart.itemsPrice + cart.taxPrice;
 
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { booking, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/booking/${booking._id}`);
+    }
+    // eslint-disable-next-lines
+  }, [history, success]);
+
   const placeOrderHandler = () => {
-    console.log('order');
+    dispatch(createOrder({
+      bookingItems: cart.cartItems,
+      clientAddress: cart.clientAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      taxPrice: cart.taxPrice,
+      totalPrice: cart.totalPrice
+    }));
   };
 
   return (
@@ -115,6 +136,10 @@ const PlaceOrderScreen = () => {
                     €
                   </Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message> }
               </ListGroup.Item>
 
               <ListGroup.Item>

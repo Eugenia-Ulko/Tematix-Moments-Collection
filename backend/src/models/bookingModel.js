@@ -1,20 +1,20 @@
-const { model, Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
-const bookingSchema = new Schema({
+const bookingSchema = mongoose.Schema({
 
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
   },
   bookingItems: [
     {
       name: { type: String, required: true },
-      quantity: { type: String, required: true },
+      qty: { type: String, required: true },
       image: { type: String, required: true },
       price: { type: String, required: true },
       excursion: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Excursion'
       }
@@ -59,5 +59,5 @@ const bookingSchema = new Schema({
   timestamps: true
 });
 
-const Booking = model('Booking', bookingSchema);
+const Booking = mongoose.model('Booking', bookingSchema);
 module.exports = Booking;
