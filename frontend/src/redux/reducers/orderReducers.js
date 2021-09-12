@@ -10,7 +10,7 @@ const orderCreateReducer = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        order: action.payload
+        booking: action.payload
       };
     case actionTypes.ORDER_CREATE_FAIL:
       return {

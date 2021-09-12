@@ -15,7 +15,7 @@ const createOrder = (booking) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`
       }
     };
-    const { data } = await axios.post('/api/orders', booking, config);
+    const { data } = await axios.post('/api/bookings', booking, config);
 
     dispatch({
       type: actionTypes.ORDER_CREATE_SUCCESS,
