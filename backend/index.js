@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api/excursions', excursionRouter);
 app.use('/api/users', userRouter);
-app.use('/api/orders', bookingRouter);
+app.use('/api/bookings', bookingRouter);
 
 app.get('/', (req, res) => {
   res.send('API is running...');

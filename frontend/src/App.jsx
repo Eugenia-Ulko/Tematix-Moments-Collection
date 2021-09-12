@@ -20,7 +20,7 @@ function App() {
       <Header />
       <main className="py-3">
         <Container>
-          <Route path="/order/:id" component={HomeScreen} />
+          <Route path="/booking/:id" component={HomeScreen} />
           <Route path="/confirmation" component={OrderConfirmationScreen} />
           <Route path="/payment" component={PaymentScreen} />
           <Route path="/placeorder" component={PlaceOrderScreen} />

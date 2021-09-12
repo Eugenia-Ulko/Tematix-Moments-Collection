@@ -34,7 +34,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await booking.save();
-
     res.status(201).json(createdOrder);
   }
 });
