@@ -7,6 +7,7 @@ const connectDB = require('./src/config/databaseConfig');
 
 const excursionRouter = require('./src/routes/excursionRouter');
 const userRouter = require('./src/routes/userRouter');
+const bookingRouter = require('./src/routes/bookingRouter');
 
 dotenv.config();
 connectDB();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api/excursions', excursionRouter);
 app.use('/api/users', userRouter);
+app.use('/api/orders', bookingRouter);
 
 app.get('/', (req, res) => {
   res.send('API is running...');
