@@ -17,7 +17,8 @@ const reducer = combineReducers({
   userUpdateProfile: userReducers.userUpdateProfileReducer,
   orderCreate: orderReducers.orderCreateReducer,
   orderDetails: orderReducers.orderDetailsReducer,
-  orderPay: orderReducers.orderPayReducer
+  orderPay: orderReducers.orderPayReducer,
+  orderMyList: orderReducers.orderMyListReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];

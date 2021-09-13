@@ -72,8 +72,30 @@ const orderPayReducer = (state = {}, action) => {
   }
 };
 
+const orderMyListReducer = (state = { bookings: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.ORDER_MY_LIST_REQUEST:
+      return {
+        loading: true
+      };
+    case actionTypes.ORDER_MY_LIST_SUCCESS:
+      return {
+        loading: false,
+        bookings: action.payload
+      };
+    case actionTypes.ORDER_MY_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
 export default {
   orderCreateReducer,
   orderDetailsReducer,
-  orderPayReducer
+  orderPayReducer,
+  orderMyListReducer
 };

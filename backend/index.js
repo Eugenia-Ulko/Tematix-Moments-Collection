@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const notFound = require('./src/middleware/errorMiddleware');
@@ -9,7 +9,6 @@ const excursionRouter = require('./src/routes/excursionRouter');
 const userRouter = require('./src/routes/userRouter');
 const bookingRouter = require('./src/routes/bookingRouter');
 
-dotenv.config();
 connectDB();
 
 const app = express();

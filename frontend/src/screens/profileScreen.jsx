@@ -1,13 +1,16 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Row, Col, Form, Button
+  Row, Col, Form, Button, Table
 } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Messages/Message';
 import Loader from '../components/Messages/Loader';
 import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
+import { myListOrders } from '../redux/actions/orderActions';
 
 // eslint-disable-next-line no-unused-vars
 const ProfileScreen = ({ location, history }) => {
@@ -28,6 +31,8 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const orderMyList = useSelector((state) => state.orderMyList);
+  const { loading: loadingBookings, error: errorBookings, bookings } = orderMyList;
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
@@ -35,6 +40,7 @@ const ProfileScreen = ({ location, history }) => {
       // eslint-disable-next-line no-lonely-if
       if (!user.name) {
         dispatch(getUserDetails('profile'));
+        dispatch(myListOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -97,6 +103,39 @@ const ProfileScreen = ({ location, history }) => {
 
       <Col md={9}>
         <h2>My Bookings</h2>
+        {loadingBookings ? <Loader /> : errorBookings ? <Message variant="danger">{errorBookings}</Message> : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>COMPLETED</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking) => (
+                <tr key={booking._id}>
+
+                  <td>{booking._id}</td>
+                  <td>{booking.createdAt.substring(0, 10)}</td>
+                  <td>{booking.totalPrice}</td>
+                  <td>
+                    {booking.isPaid ? booking.paidAt.substring(0, 10) : (
+                      <i className="fas fa-times" style={{ color: 'red' }} />)}
+
+                  </td>
+                  <td>
+                    <LinkContainer to={`/booking/${booking._id}`}>
+                      <Button className="btn-sm" variant="light">Details</Button>
+                    </LinkContainer>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
       </Col>
 
     </Row>

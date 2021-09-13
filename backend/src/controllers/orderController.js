@@ -60,7 +60,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 // @route GET /api/bookings/:id/pay
 // @access  Private
 
-const updateOrderToPaid = asyncHandler(async (req, res) => {
+/* const updateOrderToPaid = asyncHandler(async (req, res) => {
   const booking = await Booking.findById(req.params.id);
 
   if (booking) {
@@ -78,10 +78,19 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Booking not found');
   }
+}); */
+
+// @desc   Get user's bookings
+// @route GET /api/bookings/mybookings
+// @access  Private
+
+const getMyOrders = asyncHandler(async (req, res) => {
+  const bookings = await Booking.find({ user: req.user._id });
+  res.json(bookings);
 });
 
 module.exports = {
   addOrderItems,
   getOrderById,
-  updateOrderToPaid
+  getMyOrders
 };
