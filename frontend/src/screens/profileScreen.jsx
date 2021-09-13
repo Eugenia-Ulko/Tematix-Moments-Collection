@@ -96,7 +96,7 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
 
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2>My Bookings</h2>
       </Col>
 
     </Row>

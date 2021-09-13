@@ -15,19 +15,16 @@ const BookingScreen = ({ match }) => {
   const bookingId = match.params.id;
   const dispatch = useDispatch();
 
-  const orderDetails = useSelector((state) => state.orderCreate);
+  const orderDetails = useSelector((state) => state.orderDetails);
   const { booking, loading, error } = orderDetails;
 
   if (!loading) {
-    // calculate prices
     booking.itemsPrice = booking.bookingItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   }
 
   useEffect(() => {
-    if (!booking || booking._id !== bookingId) {
-      dispatch(getOrderDetails(bookingId));
-    }
-  }, [booking, bookingId]);
+    dispatch(getOrderDetails(bookingId));
+  }, []);
 
   return loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
     <>
@@ -60,6 +57,7 @@ const BookingScreen = ({ match }) => {
                 ,
                 {booking.clientAddress.city}
               </p>
+
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -160,4 +158,5 @@ const BookingScreen = ({ match }) => {
     </>
   );
 };
+
 export default BookingScreen;
