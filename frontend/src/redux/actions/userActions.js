@@ -32,6 +32,8 @@ const login = (email, password) => async (dispatch) => {
 const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: actionTypes.USER_LOGOUT });
+  dispatch({ type: actionTypes.USER_DETAILS_RESET });
+  dispatch({ type: actionTypes.ORDER_MY_LIST_RESET });
 };
 
 const register = (name, email, password) => async (dispatch) => {

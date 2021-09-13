@@ -88,6 +88,8 @@ const orderMyListReducer = (state = { bookings: [] }, action) => {
         loading: false,
         error: action.payload
       };
+    case actionTypes.ORDER_MY_LIST_RESET:
+      return { bookings: [] };
     default:
       return state;
   }
