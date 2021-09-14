@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const asyncHandler = require('express-async-handler');
 const Excursion = require('../models/excursionModel');
 
@@ -25,4 +26,5 @@ const getExcursionById = asyncHandler(async (req, res) => {
 module.exports = {
   getExcursions,
   getExcursionById
+
 };

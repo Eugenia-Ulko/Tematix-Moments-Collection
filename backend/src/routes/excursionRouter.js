@@ -1,7 +1,9 @@
 const { Router } = require('express');
+
 const {
   getExcursions,
   getExcursionById
+
 } = require('../controllers/excursionController');
 
 const excursionRouter = new Router();
